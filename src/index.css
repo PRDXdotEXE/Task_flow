@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+#card_container::-webkit-scrollbar {
+  display: none;
+}
+
+html,body{
+  font-family: "Poppins",sans-serif;}
