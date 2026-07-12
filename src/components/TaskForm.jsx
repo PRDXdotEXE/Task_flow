@@ -1,6 +1,6 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
-const Taskform = ({ addTasks }) => {
+const Taskform = (props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
@@ -9,21 +9,38 @@ const Taskform = ({ addTasks }) => {
   const handleSumbit = (e) => {
     e.preventDefault();
 
+
     const newTask = {
-    
+      id: props.editingTask ? props.editingTask.id : undefined,
       title: title,
       description: description,
       priority: priority,
       dueDate: dueDate,
-      status: "New Task",
+       status:props.editingTask ? props.editingTask.status : "New Task"
     };
-    addTasks(newTask);
+
+    if(props.editingTask){
+      props.updateTask(newTask);
+    }
+    else{
+      props.addTasks(newTask);
+    }
+
 
     setTitle("");
     setDescription("");
     setPriority("");
     setDueDate("");
   };
+
+  useEffect(()=>{
+    if (props.editingTask) {
+      setTitle(props.editingTask.title);
+      setDescription(props.editingTask.description);
+      setPriority(props.editingTask.priority);
+      setDueDate(props.editingTask.dueDate);
+    }
+  },[props.editingTask]);
 
   return (
     <div className="w-full flex justify-center items-center p-6">
@@ -115,7 +132,7 @@ const Taskform = ({ addTasks }) => {
           type="submit"
           className="mt-2 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer "
         >
-          Create Task
+          {props.editingTask? "Update Task" : "Add Task"}
         </button>
       </form>
     </div>

@@ -29,7 +29,8 @@ const TaskList = (props) => {
                         status={e.status}
                         onDelete={props.onDelete}
                         onComplete={props.onComplete}
-                        onEdit={props.onEdit}
+
+                        startEditing={() => props.startEditing(e)}
 
             />
           );

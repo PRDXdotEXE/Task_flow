@@ -1,6 +1,6 @@
 
 
-const TaskCard = ({ id, title, description, priority, dueDate, status ,onDelete,onComplete,onEdit}) => {
+const TaskCard = ({ id, title, description, priority, dueDate, status ,onDelete,onComplete,startEditing}) => {
 
   
 
@@ -26,7 +26,7 @@ const TaskCard = ({ id, title, description, priority, dueDate, status ,onDelete,
         <button onClick={()=>onDelete(id)} className="absolute top-2 right-2  bg-red-500 text-sm font-bold text-white px-4 py-2 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer ">X</button>
         <div className="flex justify-between">
         <button onClick={()=>onComplete(id)} className="  bg-green-500  font-bold text-white rounded-full flex px-3 py-2 mt-3 items-center justify-center hover:bg-green-700 transition-colors cursor-pointer self-center ">Completed</button>
-        <button onClick={()=>onEdit(id)} className="  bg-blue-500  font-bold text-white rounded-full flex px-3 py-2 mt-3 items-center justify-center hover:bg-blue-700 transition-colors cursor-pointer self-center ">Edit</button></div>
+        <button onClick={startEditing} className="  bg-blue-500  font-bold text-white rounded-full flex px-3 py-2 mt-3 items-center justify-center hover:bg-blue-700 transition-colors cursor-pointer self-center ">Edit</button></div>
         
         
       </div>

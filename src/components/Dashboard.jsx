@@ -36,7 +36,7 @@ const Dashboard = () => {
   const totaltask = tasks.length;
   const completed = tasks.filter((task) => task.status === "Completed").length;
   const inprogress = tasks.filter((task) => task.status === "Pending").length;
-
+  const [editingTask, setEditingTask] = useState(null);
 
   const over_due = tasks.filter(
       (task) => task.status !== "Completed" && task.dueDate < todayStr
@@ -47,7 +47,7 @@ const Dashboard = () => {
   // Handlers
   const addTasks = (newTask) => {
     const newTsks = {
-      id: tasks.length + 1, // Note: Consider a more robust ID system if tasks can be deleted
+      id: tasks.length + 1,
       ...newTask,
     };
     setTasks([...tasks, newTsks]);
@@ -56,7 +56,9 @@ const Dashboard = () => {
   const onDelete = (id) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
-
+  const startEditing = (task) => {
+    setEditingTask(task);
+  };
   const onComplete = (id) => {
     setTasks((prevTasks) =>
         prevTasks.map((task) =>
@@ -65,11 +67,14 @@ const Dashboard = () => {
     );
   };
 
-  // Fixed: Safely maps over the previous state array
-  const onEdit = (updatedTask) => {
+  const updateTask = (updatedTask) => {
     setTasks((prevTasks) =>
-        prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
+        prevTasks.map((task) =>
+            task.id === updatedTask.id ? updatedTask : task
+        )
     );
+
+    setEditingTask(null);
   };
 
   return (
@@ -85,14 +90,15 @@ const Dashboard = () => {
 
           <div className="flex gap-10 flex-col lg:flex-row">
             <div className="lg:w-1/3">
-              <Taskform addTasks={addTasks} length={tasks.length} />
+              <Taskform addTasks={addTasks}  updateTask={updateTask}   editingTask={editingTask} length={tasks.length} />
             </div>
             <div className="lg:w-2/3">
               <TaskList
                   onDelete={onDelete}
                   onComplete={onComplete}
                   tasks={tasks}
-                  onEdit={onEdit}
+
+                  startEditing={startEditing}
               />
             </div>
           </div>
