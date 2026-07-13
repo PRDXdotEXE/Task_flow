@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 const Taskform = (props) => {
   const [title, setTitle] = useState("");
@@ -9,23 +9,20 @@ const Taskform = (props) => {
   const handleSumbit = (e) => {
     e.preventDefault();
 
-
     const newTask = {
-      id: props.editingTask ? props.editingTask.id : undefined,
+      id: props.editingTask ? props.editingTask.id : crypto.randomUUID(),
       title: title,
       description: description,
       priority: priority,
       dueDate: dueDate,
-       status:props.editingTask ? props.editingTask.status : "New Task"
+      status: props.editingTask ? props.editingTask.status : "New Task",
     };
 
-    if(props.editingTask){
+    if (props.editingTask) {
       props.updateTask(newTask);
-    }
-    else{
+    } else {
       props.addTasks(newTask);
     }
-
 
     setTitle("");
     setDescription("");
@@ -33,14 +30,14 @@ const Taskform = (props) => {
     setDueDate("");
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (props.editingTask) {
       setTitle(props.editingTask.title);
       setDescription(props.editingTask.description);
       setPriority(props.editingTask.priority);
       setDueDate(props.editingTask.dueDate);
     }
-  },[props.editingTask]);
+  }, [props.editingTask]);
 
   return (
     <div className="w-full flex justify-center items-center p-6">
@@ -48,7 +45,6 @@ const Taskform = (props) => {
         onSubmit={handleSumbit}
         className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col gap-5"
       >
-    
         <div className="mb-2">
           <h2 className="text-2xl font-bold text-gray-800">Create New Task</h2>
           <p className="text-sm text-gray-500">
@@ -63,7 +59,8 @@ const Taskform = (props) => {
           >
             Title
           </label>
-          <input  required
+          <input
+            required
             onChange={(e) => setTitle(e.target.value)}
             type="text"
             id="title"
@@ -132,7 +129,7 @@ const Taskform = (props) => {
           type="submit"
           className="mt-2 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer "
         >
-          {props.editingTask? "Update Task" : "Add Task"}
+          {props.editingTask ? "Update Task" : "Add Task"}
         </button>
       </form>
     </div>
