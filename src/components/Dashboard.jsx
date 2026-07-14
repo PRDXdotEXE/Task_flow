@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import Statcard from "./Statcard";
-import Taskform from "./TaskForm";
 import TaskList from "./TaskList";
+import TaskForm from "./TaskForm";
 
 const Dashboard = () => {
     const [tasks, setTasks] = useState(() => {
@@ -139,7 +139,7 @@ const Dashboard = () => {
 
                 <div className="flex gap-10 flex-col lg:flex-row">
                     <div className="lg:w-1/3">
-                        <Taskform
+                        <TaskForm
                             addTasks={addTasks}
                             updateTask={updateTask}
                             editingTask={editingTask}
